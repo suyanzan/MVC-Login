@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    fieldset {
+        background-color: #f1f1f1;
+        border: none;
+        border-radius: 2px;
+        margin-bottom: 12px;
+        overflow: hidden;
+        padding: 0 .625em;
+    }
+
+    label {
+        cursor: pointer;
+        display: inline-block;
+        padding: 3px 6px;
+        text-align: right;
+        width: 150px;
+        vertical-align: top;
+    }
+
+    input {
+        font-size: inherit;
+    }
+</style>
+<h2>Index</h2>
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+<form style="margin-left:10px;" method="post" action="">
+                <label for="Product">Product：</label>
+                <input list="Products" name="Product">
+                <datalist id="Products">
+                    <option value="AP75">
+                    <option value="RD73">
+                    <option value="RD72">
+                    <option value="AP96">
+                    <option value="AN97">
+                </datalist>
+                <br />
+
+                <label for="Version">Version：</label>
+                <input list="Version" name="Version">
+                <datalist id="Version">
+                    <option value="1.0">
+                    <option value="1.1">
+                    <option value="1.4">
+                    <option value="1.3">
+                    <option value="1.5">
+                </datalist>
+                <br />
+</form>
