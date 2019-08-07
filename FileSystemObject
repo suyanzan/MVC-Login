@@ -1,1 +1,12 @@
 http://www.java2s.com/Tutorial/JavaScript/0600__MS-JScript/FileSystemObjectCreateFolder.htm
+
+    function checkfile() {
+        var myObject;
+        myObject = new ActiveXObject("Scripting.FileSystemObject");
+        if (myObject.FileExists("I:\\RD73.CTOC")) {
+            alert("File Exists");
+        } else {
+            alert("File doesn't exist");
+        }
+    }
+    <input type="button" value="Check file" onClick="checkfile()"/>
