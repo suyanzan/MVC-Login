@@ -19,11 +19,11 @@ namespace DH_MVC.Controllers
             string domain = post["domain"];//抓前端id,name屬性也要有
             string account = post["username1"];//抓前端id
             string password = post["Password1"];//抓前端id
-
             //驗證密碼
             if (CheckPassword(account, password,domain))
             {
-                Response.Redirect("~/Home/Home");
+                Session["account"] = account;
+                Response.Redirect("~/TCBS/Index");
                 return new EmptyResult();
             }
             else
