@@ -3,54 +3,78 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
-<style>
-    fieldset {
-        background-color: #f1f1f1;
-        border: none;
-        border-radius: 2px;
-        margin-bottom: 12px;
-        overflow: hidden;
-        padding: 0 .625em;
-    }
-
-    label {
-        cursor: pointer;
-        display: inline-block;
-        padding: 3px 6px;
-        text-align: right;
-        width: 150px;
-        vertical-align: top;
-    }
-
-    input {
-        font-size: inherit;
-    }
-</style>
+@model DH_MVC.Models.TCBSs
 <h2>Index</h2>
-@Styles.Render("~/Content/css")
-@Scripts.Render("~/bundles/modernizr")
-<form style="margin-left:10px;" method="post" action="">
-                <label for="Product">Product：</label>
-                <input list="Products" name="Product">
-                <datalist id="Products">
-                    <option value="AP75">
-                    <option value="RD73">
-                    <option value="RD72">
-                    <option value="AP96">
-                    <option value="AN97">
-                </datalist>
-                <br />
+<script>
 
-                <label for="Version">Version：</label>
-                <input list="Version" name="Version">
-                <datalist id="Version">
-                    <option value="1.0">
-                    <option value="1.1">
-                    <option value="1.4">
-                    <option value="1.3">
-                    <option value="1.5">
-                </datalist>
-                <br />
+ function getpath()
+ {
+     alert($("#dpf-uploader").html());
+ }
+</script>
+@{
+    var account = "";
+    if (Session["account"] == null || string.IsNullOrWhiteSpace(Session["account"].ToString()))
+    {
+        Response.Write("<script>alert('請重新登入!');location.href='/Login/Index';</script>");
+        //Response.Redirect("~/Login/Index");
+    }
+    else
+    {
+        account = Session["account"].ToString();
+    }
+}
+<form style="margin-left:10px;" method="post" action="">
+<table>
+    <tr>
+        <td><label for="Product">Product</label></td>
+        <td>
+            <input list="Products" name="Product">
+            <datalist id="Products">
+                <option value="AP75">
+                <option value="RD73">
+                <option value="RD72">
+                <option value="AP96">
+                <option value="AN97">
+            </datalist>
+        </td>
+    </tr>
+    <tr>
+        <td><label for="Version">Version</label></td>
+        <td>
+            <input list="Version" name="Version">
+            <datalist id="Version">
+                <option value="1.0">
+                <option value="1.1">
+                <option value="1.4">
+                <option value="1.3">
+                <option value="1.5">
+            </datalist>
+        </td>
+    </tr>
+    <tr>
+        <td><label for="DPF">DPF</label></td>
+        <td><input type="file" id="dpf-uploader" name="dpf" data-target="file-uploader" accept=".xls, .xlsx"  /></td>
+    </tr>
+    <tr>
+        <td><label for="FileList">FileList</label></td>
+        <td><input type="file" id="filelist-uploader" name="filelist" data-target="file-uploader" accept=".txt" onchange="getpath()"/></td>
+    </tr>
+    <tr>
+        <td>
+            <div>
+                <span style="color:red">@ViewBag.Msg</span>
+            </div>
+        </td>
+
+    </tr>
+    <tr>
+        <td><br><br><button type="submit" class="btn btn-primary">Submit</button></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><a href="@Url.Content("~/TCBS/Index")">Index</a></td>
+        <td><a href="@Url.Content("~/TCBS/Joblist")">Joblist</a></td>
+    </tr>
+</table>
 </form>

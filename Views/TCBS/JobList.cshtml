@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "JobList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    ShowTCBS();
+    function ShowPopup(message) {
+        $(function () {
+            $("#dialog-message").html(message);
+            $("#dialog-message").dialog({
+                modal: true,
+                title: "Error",
+                buttons: {
+                    Ok: function () {
+                        $(this).dialog("close");
+                        location.href = '/TCBS/Joblist';
+                    }
+                }
+            });
+        });
+    };
+    function ShowTCBS() {
+        $(function () {
+            $.ajax({
+                type: "Post",
+                url: "../TCBS/GetTCBSData",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("tbody").empty();
+                    if (data == "") {
+                        $("#TCBS_JobList").empty();
+                    }
+                    else {
+                        var data = JSON.parse(data);
+                        var markup = "";
+                        for (var i = 0; i < data.length; i++) {
+                            var Html = "<tr><td><button type='button' class='btn btn-danger' id ='btnCancel'>Cancel</button><td>"
+                                        + data[i].Product + "</td><td>" + data[i].Version + "</td> <td>"
+                                        + data[i].DPF + "</td><td>" + data[i].FileList + "</td></tr>"
+                            markup += Html;
+                        }
+                        $("table tbody").append(markup);
+                    }
+                },
+                failure: function (errMsg) {
+                    $("#TCBS_JobList").empty();
+                    alert(errMsg);
+                }
+            })
+        });
+    };
+    $(function () {
+        //Assign Click event to Button.
+        $(".btn-danger").click(function () {
+            var row = $(this).closest("tr")[0];
+            var product = row.cells[1].innerHTML;
+            var version = row.cells[2].innerHTML;
+            var dpf = row.cells[3].innerHTML;
+            var filelist = row.cells[4].innerHTML;
+            $.ajax({
+                type: "Get",
+                url: "../TCBS/PutTCBSData",
+                data: 'product='+product+'&version='+version+'&dpf='+dpf+'&filelist='+filelist,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: false,
+                success: function (data) {                   
+                    ShowTCBS();
+                    ShowPopup("刪除成功!");
+                },
+                failure: function (errMsg) {
+                    alert(errMsg);
+                }
+            })
+        });
+    });
+</script>
+<style>
+    .table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
+        background-color: #33E6CC;
+        color:#eeeeee;
+    }
+    .td {
+        white-space: nowrap; overflow:hidden;word-break:break-all;
+    }
+</style>
+<h2>JobList</h2>
+@{
+    var account = "";
+    if (Session["account"] == null || string.IsNullOrWhiteSpace(Session["account"].ToString()))
+    {
+        Response.Write("<script>alert('請重新登入!');location.href='/Login/Index';</script>");
+        //Response.Redirect("~/Login/Index");
+    }
+    else
+    {
+        account = Session["account"].ToString();
+    }
+}
+<form>
+    @*<input type="button" class="row" value="Click to Add Row">*@
+
+    <diV><a href="@Url.Content("~/TCBS/Index")">Index</a></diV>
+    <diV><a href="@Url.Content("~/TCBS/Joblist")">Joblist</a></diV>
+
+    <div class="row">
+        <div class="table-responsive">
+            <table id="TCBS_JobList" class="table table-bordered table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Produt</th>
+                        <th>Version</th>
+                        <th>DPF</th>
+                        <th>FileList</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody"></tbody>
+            </table>
+        </div>
+    </div>
+    <div id="dialog-message" style="display: none"></div>
+</form>
