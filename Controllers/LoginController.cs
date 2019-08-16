@@ -23,8 +23,9 @@ namespace DH_MVC.Controllers
             if (CheckPassword(account, password,domain))
             {
                 Session["account"] = account;
-                Response.Redirect("~/TCBS/Index");
-                return new EmptyResult();
+                //Response.Redirect("~/TCBS/Index");
+                //return new EmptyResult();
+                return RedirectToAction("Index", "TCBS", new { account = Session["account"].ToString() });
             }
             else
             {
