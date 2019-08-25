@@ -88,6 +88,9 @@
     .td {
         white-space: nowrap; overflow:hidden;word-break:break-all;
     }
+        .nav-tabs {
+        width: 25%;
+    }
 </style>
 <h2>JobList</h2>
 @{
@@ -102,11 +105,10 @@
         account = Session["account"].ToString();
     }
 }
+
 <form>
     @*<input type="button" class="row" value="Click to Add Row">*@
 
-    <diV><a href="@Url.Content("~/TCBS/Index")">Index</a></diV>
-    <diV><a href="@Url.Content("~/TCBS/Joblist")">Joblist</a></diV>
 
     <div class="row">
         <div class="table-responsive">

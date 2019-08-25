@@ -4,13 +4,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model DH_MVC.Models.TCBSs
-<h2>Index</h2>
+@*<h2>Index</h2>*@
+@*<style>
+    .nav-tabs {
+        width: 25%;
+    }
+</style>*@
 <script>
 
- function getpath()
- {
-     alert($("#dpf-uploader").html());
- }
+ //function getpath()
+ //{
+ //    alert($("#dpf-uploader").html());
+ //}
 </script>
 @{
     var account = "";
@@ -24,8 +29,31 @@
         account = Session["account"].ToString();
     }
 }
+@*<ul class="nav nav-tabs navbar-left" style="background-color: #e3f2fd;">
+    <li><a href="/TCBS/Index">Index</a></li>
+    <li><a href="/TCBS/Joblist">Joblist</a></li>
+
+</ul>
+<br>
+<br>*@
 <form style="margin-left:10px;" method="post" action="">
+
 <table>
+    <tr>
+        <td>
+            <ul class="nav nav-tabs navbar-left" style="background-color: #e3f2fd;">
+                <li><a href="/TCBS/Index">Index</a></li>
+                <li><a href="/TCBS/Joblist">Joblist</a></li>
+
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <br />
+            <br />
+        </td>
+    </tr>
     <tr>
         <td><label for="Product">Product</label></td>
         <td>
@@ -71,10 +99,6 @@
     <tr>
         <td><br><br><button type="submit" class="btn btn-primary">Submit</button></td>
         <td></td>
-    </tr>
-    <tr>
-        <td><a href="@Url.Content("~/TCBS/Index")">Index</a></td>
-        <td><a href="@Url.Content("~/TCBS/Joblist")">Joblist</a></td>
     </tr>
 </table>
 </form>
