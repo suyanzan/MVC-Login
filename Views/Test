@@ -1,1 +1,45 @@
 
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Demo</title>
+</head>
+<body>
+
+    <!--引用jQuery核心-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //建立物件
+            var stat = "a+b-C#";
+            let person = { Name: "Jack" };
+            //建立陣列
+            let persons = new Array();
+            persons.push({ Name: "Apple" });
+            persons.push({ Name: "Banana" });
+            persons.push({ Name: "T+_IO" });
+            persons.push({ Name: "A-_IO" });
+            persons.push({ Name: stat });
+          //ajax request
+          let promise =
+                $.ajax({
+                    url: "../Test/GetData",
+                    method: "post",
+                    contentType: 'application/json',
+                    data: JSON.stringify({ ID: 1, person: person, persons: persons })
+                });
+            promise.done(function (data)
+            {
+                //顯示Server端回傳的資料
+                console.log(data);
+            });
+
+
+        });
+    </script>
+</body>
+</html>
